@@ -7,9 +7,13 @@ Capstone-design (2021-1,2)
 
 
 ### PIN
-> - dust out => A5
-> - dust led => D2
-> - rain => A4
+> - Dust out => A5
+> - Dust led => D2
+> - Rain => A4
+> - Bluetooth TXD => D2
+> - Bluetooth RXD => D3
+> - Motor IN1,2,3,4 -> D5,D6,D7,D8
+
 
 
 ### Progress
