@@ -2,7 +2,7 @@
 Capstone-design (2021-1,2)
    
 
-<img src="img/회로도.JPG" width="40%" height="30%" title="회로도,사용부품" alt="회로도,사용부품"></img>
+<img src="img/회로도.JPG" width="60%" title="회로도,사용부품" alt="회로도,사용부품"></img>
 
 
 
