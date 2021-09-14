@@ -87,11 +87,13 @@ void loop() {
         Serial.print ("Motor Left"); //보호창 내리기 위해 모터 회전
         Serial.print ("Open");
       }
+  }
   
   else {
     // state same. nothing
   }
-    
+ 
+   
     
   delay (1000);
   pre+state = state;
@@ -106,7 +108,5 @@ void loop() {
   Serial.print ("-----------------------");
   
   Serial.print (END);
-  }
-  
 
 }
