@@ -2,6 +2,7 @@
 
 int rain_value = 0; //빗방울 데이터
 int rain_sum = 0; //빗방울 값 저장 (10번)
+int rain_avg = 0; //ㅍㅕㅇㄱㅠㄴㄱㅏㅂㅅ
 int pre_state = 0;
 int state = 0;
 
@@ -22,13 +23,13 @@ void loop() {
   Serial.print ("rain_sum : ");
   Serial.print (rain_sum);
 
-  rain_sum/=10; //평균값
+  rain_avg = rain_sum/10; //평균값
   Serial.print ("rain_sum/10 = rain_avg : "); //avg
-  Serial.print (rain_sum);
+  Serial.print (rain_avg);
 
 
 //state 변경
-  if(rain_sum < 900) { //기준 이하면
+  if(rain_avg < 900) { //기준 이하면
     state = 0 //Open상태
     Serial.print ("Weather is good for 5s");
   }
@@ -36,6 +37,7 @@ void loop() {
   else { //기준 이상이면
     state = 1
   }
+  
   Serial.print ("---------before----------"); //비교 전
   Serial.print ("state : ");
   Serial.print (state);
@@ -48,19 +50,25 @@ void loop() {
   
 //pre_state 와 state 비교하여 동작
   if(state != pre_state) {
-    if (state==1) { //pre_state=0, state=1
-      Serial.print ("Motor Right"); //보호창 올리기 위해 모터 회전
-      Serial.print ("Close");
-    }
+      if (state==1) { //pre_state=0, state=1
+        Serial.print ("Motor Right"); //보호창 올리기 위해 모터 회전
+        Serial.print ("Close");
+      }
     
-    else { //pre_state=1, state=0
-      Serial.print ("Motor Left"); //보호창 내리기 위해 모터 회전
-      Serial.print ("Open");
-    }
-
+     else { //pre_state=1, state=0
+        Serial.print ("Motor Left"); //보호창 내리기 위해 모터 회전
+        Serial.print ("Open");
+      }
+  
+  else {
+    // state same. nothing
+  }
+    
+    
   delay (1000);
-  state = pre_state;
+  pre+state = state;
   delay (500);
+    
   Serial.print ("---------after---------"); //비교 후
   Serial.print ("state : ");
   Serial.print (state);
