@@ -46,28 +46,67 @@ void loop() {
   }
   
   
-  //10번 측정한 값 평균 구함
- 
+   //10번 측정한 값 평균
   dust_avg = dust_sum/10;
+  
+  Serial.print ("dust_avg : ");
+  Serial.print (dust_avg);
+  
+  Serial.print ("dust_sum : ");
+  Serial.print (dust_sum);
 
-  if(dust_sum <200) { //기준에 맞으면 state=0
-    state = 0;
-    Serial.println("Weather is good for 5s");
+  
+  //state 변경
+  if(dust_avg < 900) { //기준 이하면
+    state = 0 //Open상태
+    Serial.print ("Weather is good for 5s");
   }
 
-  if(state != pre_state) { //상태가 바뀌면 동작
-    if(state==1){ //보호창 올리기 위해 모터 시계방향 회전
-      stepper.step(stepvalue);
-      Serial.println("close");
-    }
-    else{ //보호창 내리기 위해 모터 반시계방향 회전
-      stepper.step(-stepvalue);
-      Serial.println("close");
-    }
-    delay(1000);
-    state = pre_state; //측정값은 이제 과거의 값이 됨!
-    delay(500);
+  else { //기준 이상이면
+    state = 1
   }
+  
+  Serial.print ("---------before----------"); //비교 전
+  Serial.print ("state : ");
+  Serial.print (state);
+  
+  Serial.print ("pre_state : ");
+  Serial.print (pre_state);
+  
+  Serial.print ("-------------------------");
 
+  
+ //pre_state 와 state 비교하여 동작
+  if(state != pre_state) {
+      if (state==1) { //pre_state=0, state=1
+        Serial.print ("Motor Right"); //보호창 올리기 위해 모터 회전
+        Serial.print ("Close");
+      }
+    
+     else { //pre_state=1, state=0
+        Serial.print ("Motor Left"); //보호창 내리기 위해 모터 회전
+        Serial.print ("Open");
+      }
+  
+  else {
+    // state same. nothing
+  }
+    
+    
+  delay (1000);
+  pre+state = state;
+  delay (500);
+    
+  Serial.print ("---------after---------"); //비교 후
+  Serial.print ("state : ");
+  Serial.print (state);
+  
+  Serial.print ("pre_state : ");
+  Serial.print (pre_state);
+  Serial.print ("-----------------------");
+  
+  Serial.print (END);
+  }
+  
 
 }
