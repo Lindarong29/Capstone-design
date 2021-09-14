@@ -66,7 +66,7 @@ void loop() {
     
     
   delay (1000);
-  pre+state = state;
+  pre_state = state;
   delay (500);
     
   Serial.print ("---------after---------"); //비교 후
@@ -77,7 +77,7 @@ void loop() {
   Serial.print (pre_state);
   Serial.print ("-----------------------");
   
-  Serial.print (END);
+  Serial.print ("END");
   }
   
 }
