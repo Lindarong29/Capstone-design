@@ -1,6 +1,6 @@
 
 #include <Wire.h>
-
+#include <Stepper.h>
 #define no_dust 0.35 //먼지 없을 때 초기값
 
 int state=0; //현재 상태 (0 = open / 1 = close)
@@ -18,7 +18,13 @@ float dust_avg = 0; // (dust_avg/10)
 //Rain
 float rain_value = 0; //빗방울 데이터
 float rain_sum = 0; //빗방울 값 저장 (10번)
-float rain_avg = 0; //ㅍㅕㅇㄱㅠㄴㄱㅏㅂㅅ
+float rain_avg = 0; //평균값
+
+//Step motor
+const int stepvalue=2048;
+
+Stepper stepper(stepvalue, 8, 7, 6, 5); // stepper객체 설정
+// 연결 핀 : IN4, IN2, IN3, IN1
 
 
 void setup() {
@@ -26,6 +32,7 @@ void setup() {
   Serial.begin(9600); //시리얼 통신 시작
   pinMode(v_led,OUTPUT);
   pinMode(vo,INPUT);
+  stepper.setSpeed(15); //모터 속도
 }
 
 
@@ -87,13 +94,18 @@ void loop() {
  //pre_state 와 state 비교하여 동작
   if(state != pre_state) {
       if (state==1) { //pre_state=0, state=1
+
         Serial.println ("Motor Right"); //보호창 올리기 위해 모터 회전
         Serial.println ("Close");
+        stepper.step(stepvalue);
+        delay (1000);
       }
     
      else { //pre_state=1, state=0
         Serial.println ("Motor Left"); //보호창 내리기 위해 모터 회전
         Serial.println ("Open");
+        stepper.step(-stepvalue);
+        delay (1000);
       }
   }
   
@@ -102,7 +114,6 @@ void loop() {
   }
  
    
-    
   delay (1000);
   pre_state = state;
   delay (500);
