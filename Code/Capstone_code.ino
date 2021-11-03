@@ -79,7 +79,8 @@ void loop() {
 
   
   //state 변경
-  if(dust_avg<400 && rain_avg<1500) { //기준 이하면
+  if(dust_avg<400 && rain_avg>300) { //기준 이하면 
+    // 빗물센서에 빗물 있으면 값이 떨어짐.
     state = 0; //Open상태
     Serial.println ("Weather is good for 5s");
   }
