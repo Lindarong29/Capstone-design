@@ -99,14 +99,14 @@ void loop() {
   if(state != pre_state) {
       if (state==1) { //pre_state=0, state=1
 
-        stepper.move(-1080); //보호창 올리기 위해 모터 회전
+        stepper.move(1080); //보호창 올리기 위해 모터 회전
         Serial.println ("Close");
         delay (500);
         
       }
     
      else { //pre_state=1, state=0
-        stepper.move(1080); //보호창 내리기 위해 모터 회전
+        stepper.move(-1080); //보호창 내리기 위해 모터 회전
         Serial.println ("Open");
         delay (500);
      }
