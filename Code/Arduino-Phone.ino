@@ -34,7 +34,7 @@ void loop(){
     input = "";                       // 받은 문자열을 빈 문자열로 갱신
   }
   
-   if(input == "Window"){              // 입력받은 문자열이 Weather 라면
+   if(input == "Weather"){              // 입력받은 문자열이 Weather 라면
      
        //=============센서 기준에 따라 현재의 비/미세먼지 상태===========
         if(rain_avg < 900) {
