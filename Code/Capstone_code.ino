@@ -56,12 +56,14 @@ void loop() {
 
     dust_sum += dust_density; //측정한 미세먼지 값 저장
 
-    delay(500);
+    delay(100);
     
     
   //Rain 측정
     rain_value = analogRead(A4); //빗방울 센서 READ (A4)
     rain_sum += rain_value; //측정한 빗물센서 값 저장
+
+    delay(100);
  
  }
   
@@ -80,7 +82,7 @@ void loop() {
 
   
   //state 변경
-  if(dust_avg<400 && rain_avg>300) { //기준 이하면 
+  if(dust_avg<400 && rain_avg>400) { //기준 이하면 
     // 빗물센서에 빗물 있으면 값이 떨어짐.
     state = 0; //Open상태
     Serial.println ("Weather is good for 5s");
@@ -99,33 +101,31 @@ void loop() {
 
         stepper.move(-1080); //보호창 올리기 위해 모터 회전
         Serial.println ("Close");
-        stepper.step(stepvalue);
-        delay (1000);
+        delay (500);
+        
       }
     
      else { //pre_state=1, state=0
         stepper.move(1080); //보호창 내리기 위해 모터 회전
         Serial.println ("Open");
-        stepper.step(-stepvalue);
-        delay (1000);
-      }
+        delay (500);
+     }
   }
   
   else {
     // state same. nothing
   }
- 
    
   delay (1000);
+  
   pre_state = state;
   delay (500);
     
     
   Serial.println ("END");
-
+  Serial.println ("-----------------------");
   dust_sum = 0;
   rain_sum = 0;
 
-dalay(3000);
+  delay (5000);
 }
-
