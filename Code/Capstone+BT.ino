@@ -28,7 +28,7 @@ Stepper stepper(8,9,10,11);
 // 연결 핀 : IN4, IN2, IN3, IN1
 
 //Bluetooth
-int BT_RXD = 2; // 아두이노측 수신부 RXD는 2번핀(HC-06측 송신부 TXD와 연결)
+int BT_RXD = 4; // 아두이노측 수신부 RXD는 2번핀(HC-06측 송신부 TXD와 연결)
 int BT_TXD = 3; // 아두이노측 송신부 TXD는 3번핀(HC-06측 수신부 RXD와 연결)
 String input = "";
 SoftwareSerial bluetooth(BT_RXD, BT_TXD);   // 소프트웨어 시리얼 bluetooth 객체 선언
