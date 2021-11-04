@@ -9,12 +9,12 @@
 
 
 #include <SoftwareSerial.h>     // 소프트웨어 시리얼 라이브러리 불러옴
- 
-int BT_RXD = 2; // 아두이노측 수신부 RXD는 2번핀(HC-06측 송신부 TXD와 연결)
+#include <HuemonelabKit.h>
+
+int BT_RXD = 4; // 아두이노측 수신부 RXD는 2번핀(HC-06측 송신부 TXD와 연결)
 int BT_TXD = 3; // 아두이노측 송신부 TXD는 3번핀(HC-06측 수신부 RXD와 연결)
 
-Stepper stepper (stepvalue, 8,7,6,5);  // 스텝모터 연결
-const int stepvalue=2048;
+Stepper stepper(8,9,10,11);
 
 String input = "";
 
@@ -26,6 +26,7 @@ void setup(){
   Serial.begin(9600);     // 시리얼 통신 시작
   bluetooth.begin(9600);  // 블루투스 통신 시작
   stepper.setSpeed(15); //모터 속도
+  stepper.setDir(1);
 }
  
 void loop(){
@@ -39,12 +40,16 @@ void loop(){
   
   // 만약 1의 입력이 들어오고 보호창이 내려간 상태면, 보호창 올려 (input을 int로 변환함)
   if (input.toInt() == 1 && state == 0) {
-    stepper.step(stepvalue);
+        stepper.move(-1080); //보호창 올리기 위해 모터 회전
+        Serial.println ("Close");
+        delay (500);
   }
   
   // 만약 0의 입력이 들어오고 보호창이 올라간 상태면, 보호창 내려
   else if (input.toInt() == 0 && state == 1) {
-    stepper.step(-stepvalue);
+        stepper.move(1080); //보호창 내리기 위해 모터 회전
+        Serial.println ("Open");
+        delay (500);
   }
  
 }
